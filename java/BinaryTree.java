@@ -9,6 +9,14 @@ class Node {
 }
 
 public class BinaryTree {
+  public static void printPreorder(Node node) {
+    if (node == null) return;
+    
+    System.out.print(node.key + " ");
+    printPreorder(node.left);
+    printPreorder(node.right);
+  }
+  
   public static void printPostorder(Node node) {
     if (node == null) return;
     
@@ -22,15 +30,7 @@ public class BinaryTree {
     
     printInorder(node.left);
     System.out.print(node.key + " ");
-    printPostorder(node.right);
-  }
-  
-  public static void printPreorder(Node node) {
-    if (node == null) return;
-    
-    System.out.print(node.key + " ");
-    printInorder(node.left);
-    printPostorder(node.right);
+    printInorder(node.right);
   }
   
   public static void main(String[] args) {
@@ -39,14 +39,16 @@ public class BinaryTree {
     root.right = new Node(3);
     root.left.left = new Node(4);
     root.left.right = new Node(5);
+    root.right.left = new Node(6);
+    root.right.right = new Node(7);
     
     System.out.println("Preorder traversal of binary tree is ");
     printPreorder(root);
     
-    System.out.println("\nInorder traversal of binary tree is ");
-    printInorder(root);
-    
     System.out.println("\nPostorder traversal of binary tree is ");
     printPostorder(root);
+    
+    System.out.println("\nInorder traversal of binary tree is ");
+    printInorder(root);
   }
 }
