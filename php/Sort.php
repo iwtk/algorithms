@@ -54,6 +54,40 @@ class Sort {
         return $left;
     }
     
+    public static function mergeSort(&$arr, $low, $high) {
+        if ($low >= $high) return;
+        
+        $middle = ($low + $high) / 2;
+        self::mergeSort($arr, $low, $middle);
+        self::mergeSort($arr, $middle + 1, $high);
+        self::merge($arr, $low, $middle, $high);
+    }
+    
+    private static function merge(&$arr, $low, $middle, $high) {
+        $helper = array();
+        
+        for ($i = $low; $i <= $high; $i++)
+            $helper[$i] = $arr[$i];
+        
+        $helper_left = $low;
+        $helper_right = $middle + 1;
+        $current = $low;
+        
+        while ($helper_left <= $middle && $helper_right <= $high) {
+            if ($helper[$helper_left] <= $helper[$helper_right]) {
+                $arr[$current] = $helper[$helper_left];
+                $helper_left++;
+            } else {
+                $arr[$current] = $helper[$helper_right];
+                $helper_right++;
+            }
+            $current++;
+        }
+        
+        for ($i = 0; $i <= $middle - $helper_left; $i++)
+            $arr[$current + $i] = $helper[$helper_left + $i];
+    }
+    
     private function swap(&$arr, $a, $b) {
         $tmp = $arr[$a];
         $arr[$a] = $arr[$b];
@@ -66,6 +100,7 @@ $arr = array(8, 3, 1, 2, 7, 5, 6, 4);
 //Sort::insertionSort($arr);
 //Sort::selectionSort($arr);
 //Sort::shellSort($arr);
-Sort::quickSort($arr, 0, count($arr)-1);
+//Sort::quickSort($arr, 0, count($arr)-1);
+Sort::mergeSort($arr, 0, count($arr)-1);
 foreach ($arr as $val)
     echo $val;
