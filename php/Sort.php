@@ -31,6 +31,29 @@ class Sort {
         }
     }
     
+    public static function quickSort(&$arr, $left, $right) {
+        if ($left >= $right) return;
+        
+        $index = self::partition($arr, $left, $right);
+        self::quickSort($arr, $left, $index - 1);
+        self::quickSort($arr, $index, $right);
+    }
+    
+    private static function partition(&$arr, $left, $right) {
+        $pivot = $arr[($left + $right) / 2];
+        
+        while ($left <= $right) {
+            while ($arr[$left] < $pivot) $left++;
+            while ($arr[$right] > $pivot) $right--;
+            if ($left <= $right) {
+                self::swap($arr, $left, $right);
+                $left++;
+                $right--;
+            }
+        }
+        return $left;
+    }
+    
     private function swap(&$arr, $a, $b) {
         $tmp = $arr[$a];
         $arr[$a] = $arr[$b];
@@ -42,6 +65,7 @@ $arr = array(8, 3, 1, 2, 7, 5, 6, 4);
 //Sort::bubbleSort($arr);
 //Sort::insertionSort($arr);
 //Sort::selectionSort($arr);
-Sort::shellSort($arr);
+//Sort::shellSort($arr);
+Sort::quickSort($arr, 0, count($arr)-1);
 foreach ($arr as $val)
     echo $val;
