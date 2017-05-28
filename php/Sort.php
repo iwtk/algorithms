@@ -20,6 +20,17 @@ class Sort {
                 if ($arr[$i] > $arr[$j]) self::swap($arr, $i, $j);
     }
     
+    public static function shellSort(&$arr) {
+        $gaps = array(8, 4, 2, 1);
+        foreach ($gaps as $g) {
+            for ($i = $g; $i <= count($arr)-1; $i += $g)
+                for ($j = $i; $j >= $g; $j -= $g) {
+                    if ($arr[$j-$g] < $arr[$j]) break;
+                    self::swap($arr, $j, $j-$g);
+                }
+        }
+    }
+    
     private function swap(&$arr, $a, $b) {
         $tmp = $arr[$a];
         $arr[$a] = $arr[$b];
@@ -30,6 +41,7 @@ class Sort {
 $arr = array(8, 3, 1, 2, 7, 5, 6, 4);
 //Sort::bubbleSort($arr);
 //Sort::insertionSort($arr);
-Sort::selectionSort($arr);
+//Sort::selectionSort($arr);
+Sort::shellSort($arr);
 foreach ($arr as $val)
     echo $val;
