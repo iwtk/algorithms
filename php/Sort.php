@@ -57,7 +57,7 @@ class Sort {
     public static function mergeSort(&$arr, $low, $high) {
         if ($low >= $high) return;
         
-        $middle = ($low + $high) / 2;
+        $middle = intval(($low + $high) / 2);
         self::mergeSort($arr, $low, $middle);
         self::mergeSort($arr, $middle + 1, $high);
         self::merge($arr, $low, $middle, $high);
