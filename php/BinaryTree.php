@@ -11,6 +11,14 @@ class Node {
 }
 
 class BinaryTree {
+    public static function printPreorder($node) {
+        if ($node == null) return;
+        
+        echo $node->key . " ";
+        self::printPreorder($node->left);
+        self::printPreorder($node->right);
+    }
+    
     public static function printPostorder($node) {
         if ($node == null) return;
         
@@ -33,6 +41,12 @@ $root->left = new Node(2);
 $root->right = new Node(3);
 $root->left->left = new Node(4);
 $root->left->right = new Node(5);
+$root->right->left = new Node(6);
+$root->right->right = new Node(7);
 
-echo "Postorder traversal of binary tree is \n";
+echo "Prerder traversal of binary tree is \n";
+BinaryTree::printPreorder($root);
+echo "\nPostorder traversal of binary tree is \n";
 BinaryTree::printPostorder($root);
+echo "\nInorder traversal of binary tree is \n";
+BinaryTree::printInorder($root);
