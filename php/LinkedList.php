@@ -23,8 +23,10 @@ class LinkedList {
     }
     
     public function deleteNode($key) {
-        if ($this->head->data == $key)
+        if ($this->head->data == $key) {
             $this->head = $this->head->next;
+            return;
+        }
         
         $current = $this->head;
         while ($current->next != null) {
